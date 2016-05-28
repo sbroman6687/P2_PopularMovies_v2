@@ -13,6 +13,7 @@ import android.util.Log;
 /**
  * Created by Soledad on 5/19/2016.
  */
+
 public class MoviesProvider extends ContentProvider {
     private static final String LOG_TAG = MoviesProvider.class.getSimpleName();
     private static final UriMatcher sUriMatcher = buildUriMatcher();
