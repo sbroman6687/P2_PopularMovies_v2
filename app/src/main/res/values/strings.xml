@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">P2 PopularMovies</string>
+    <string name="content_authority">coursesbr.examples.p2popularmovies</string>
+    <string name="sync_account_type"> p2popularmovies.example.coursesbr</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_movie_detail">Movie Detail</string>
+    <string name="movies_sort_label">Sort Movies By</string>
+    <string name="pref_sort_mostpopular">popularity.desc</string>
+    <string name="pref_sort_label_popular">Most Popular</string>
+    <string name="pref_sort_label_toprated">Highest Rated</string>
+    <string name="pref_movies_sort_key">sort_by</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="pref_sort_value_toprated">top rated</string>
+    <string name="pref_sort_value_popular">most popular</string>
+
+    <string-array name="pref_sort_options">
+        <item>@string/pref_sort_label_popular</item>
+        <item>@string/pref_sort_label_toprated</item>
+    </string-array>
+
+    <string-array name="pref_sort_values">
+        <item>@string/pref_sort_value_popular</item>
+        <item>@string/pref_sort_value_toprated</item>
+    </string-array>
+</resources>
