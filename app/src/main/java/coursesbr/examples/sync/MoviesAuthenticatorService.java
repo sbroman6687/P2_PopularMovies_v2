@@ -1,4 +1,4 @@
-package coursesbr.examples.p2popularmovies.sync;
+package coursesbr.examples.sync;
 
 /**
  * Created by Soledad on 5/25/2016.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="coursesbr.examples.p2popularmovies">
+    package="coursesbr.examples">
 
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -38,7 +38,7 @@
 
         </activity>
         <provider
-            android:authorities="coursesbr.examples.p2popularmovies"
+            android:authorities="coursesbr.examples"
             android:name=".data.MoviesProvider"
             android:exported="false"
             android:syncable = "true"/>

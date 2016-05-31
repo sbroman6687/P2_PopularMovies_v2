@@ -1,4 +1,4 @@
-package coursesbr.examples.p2popularmovies.sync;
+package coursesbr.examples.sync;
 
 import android.accounts.AbstractAccountAuthenticator;
 import android.accounts.Account;

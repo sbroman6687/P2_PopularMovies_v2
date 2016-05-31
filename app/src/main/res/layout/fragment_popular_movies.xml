@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="coursesbr.examples.p2popularmovies.PopularMoviesActivityFragment"
+    tools:context="coursesbr.examples.PopularMoviesActivityFragment"
     tools:showIn="@layout/activity_popular_movies">
 
     <GridView

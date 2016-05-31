@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="coursesbr.examples.p2popularmovies.MovieDetailActivityFragment"
+    tools:context="coursesbr.examples.MovieDetailActivityFragment"
     tools:showIn="@layout/activity_movie_detail">
 
     <LinearLayout

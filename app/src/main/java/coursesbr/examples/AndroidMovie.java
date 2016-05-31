@@ -1,4 +1,4 @@
-package coursesbr.examples.p2popularmovies;
+package coursesbr.examples;
 
 /**
  * Created by Soledad on 5/19/2016.
@@ -21,4 +21,4 @@ public class AndroidMovie {
         this.backdrop_url=backdropUrl;
     }
 }
-//testing if github works
+

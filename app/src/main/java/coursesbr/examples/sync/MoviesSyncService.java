@@ -1,4 +1,4 @@
-package coursesbr.examples.p2popularmovies.sync;
+package coursesbr.examples.sync;
 
 import android.app.Service;
 import android.content.Intent;

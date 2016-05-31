@@ -1,22 +1,16 @@
-package coursesbr.examples.p2popularmovies;
+package coursesbr.examples;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
-
-import coursesbr.examples.p2popularmovies.data.MoviesContract;
+import coursesbr.examples.data.MoviesContract;
 
 /**
  * Created by Soledad on 5/19/2016.

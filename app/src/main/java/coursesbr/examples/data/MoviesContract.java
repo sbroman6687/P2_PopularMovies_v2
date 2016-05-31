@@ -1,4 +1,4 @@
-package coursesbr.examples.p2popularmovies.data;
+package coursesbr.examples.data;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -9,12 +9,12 @@ import android.provider.BaseColumns;
  * Created by Soledad on 5/19/2016.
  */
 public class MoviesContract {
-    public static final String CONTENT_AUTHORITY = "coursesbr.examples.p2popularmovies";
+    public static final String CONTENT_AUTHORITY = "coursesbr.examples";
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
     public static final class MovieEntry implements BaseColumns{
         //Table name
-        public static final String TABLE_MOVIES = "movie";
+        public static final String TABLE_MOVIES = "movie2";
         //Columns
         public static final String _ID = "_id";
         public static final String COLUMN_TITLE = "title";
@@ -43,4 +43,4 @@ public class MoviesContract {
 
     }
 }
-//testing git hub is working
+

@@ -1,4 +1,4 @@
-package coursesbr.examples.p2popularmovies.data;
+package coursesbr.examples.data;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;

@@ -1,15 +1,8 @@
-package coursesbr.examples.p2popularmovies;
+package coursesbr.examples;
 
-import android.content.ContentUris;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.NetworkOnMainThreadException;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
@@ -21,27 +14,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Arrays;
-
-import coursesbr.examples.p2popularmovies.data.MoviesContract;
-import coursesbr.examples.p2popularmovies.sync.MoviesSyncAdapter;
+import coursesbr.examples.data.MoviesContract;
+import coursesbr.examples.sync.MoviesSyncAdapter;
 
 /**
  * A placeholder fragment containing a simple view.
  */
+
 public class PopularMoviesActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String LOG_TAG = PopularMoviesActivityFragment.class.getSimpleName();
@@ -122,6 +103,8 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
         rootView = inflater.inflate(R.layout.fragment_popular_movies,container,false);
 
         //initialize your AndroidMovieAdapter
+
+
         movieAdapter = new AndroidMovieAdapter(getActivity(),null,0,CURSOR_LOADER_ID);
         //initialize gridView to the GridView in fragment_popular_movies.xml
         gridView = (GridView)rootView.findViewById(R.id.gridView_popularmovies);

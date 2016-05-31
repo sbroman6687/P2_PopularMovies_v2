@@ -1,4 +1,4 @@
-package coursesbr.examples.p2popularmovies;
+package coursesbr.examples;
 
 import android.content.Context;
 import android.content.SharedPreferences;

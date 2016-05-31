@@ -1,4 +1,4 @@
-package coursesbr.examples.p2popularmovies;
+package coursesbr.examples;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import coursesbr.examples.p2popularmovies.data.MoviesContract;
+import coursesbr.examples.data.MoviesContract;
 
 public class MovieDetailActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 

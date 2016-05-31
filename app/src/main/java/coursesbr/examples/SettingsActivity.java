@@ -1,4 +1,4 @@
-package coursesbr.examples.p2popularmovies;
+package coursesbr.examples;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package coursesbr.examples.p2popularmovies.sync;
+package coursesbr.examples.sync;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -12,7 +12,7 @@ import android.content.SyncResult;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.NetworkOnMainThreadException;
+
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -24,15 +24,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
+
 import java.net.URL;
 import java.util.Vector;
 
-import coursesbr.examples.p2popularmovies.AndroidMovie;
-import coursesbr.examples.p2popularmovies.BuildConfig;
-import coursesbr.examples.p2popularmovies.R;
-import coursesbr.examples.p2popularmovies.Utility;
-import coursesbr.examples.p2popularmovies.data.MoviesContract;
+import coursesbr.examples.BuildConfig;
+import coursesbr.examples.R;
+import coursesbr.examples.Utility;
+import coursesbr.examples.data.MoviesContract;
 
 /**
  * Created by Soledad on 5/25/2016.
