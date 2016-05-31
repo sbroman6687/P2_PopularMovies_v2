@@ -1,6 +1,7 @@
 package coursesbr.examples;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.telecom.Call;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +33,8 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
     public AndroidMovieAdapter movieAdapter;
     public GridView gridView;
     public View rootView;
+
+
 
     private int mPosition = GridView.INVALID_POSITION;
 
@@ -55,12 +59,7 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
     private static final int COL_MOVIE_POSTER = 2;
 
 
-    public interface Callback {
-        /**
-         * DetailFragmentCallback for when an item has been selected.
-         */
-        public void onItemSelected(Uri dateUri);
-    }
+
 
     public PopularMoviesActivityFragment() {
     }
@@ -117,26 +116,48 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                 //CursorAdapter returns a cursor at the correct position for getItem(), or null
-                 //if it cannot seek to that position.
+                //CursorAdapter returns a cursor at the correct position for getItem(), or null
+                //if it cannot seek to that position.
                 Cursor cursor = (Cursor) adapterView.getItemAtPosition(position);
 
                 Log.d(LOG_TAG, "Grid view item clicked: position: " + position + " movie ID: " + cursor.getInt(COL_MOVIE_ID) + " movie title: " + cursor.getString(COL_MOVIE_TITLE) + " poster path: " + cursor.getString(COL_MOVIE_POSTER));
 
                 if (cursor != null) {
                     //String sortbySetting = Utility.getPreferedSorting(getActivity());
-                    //((Callback) getActivity()).onItemSelected(MoviesContract.MovieEntry.buildMoviesUri(cursor.getInt(COL_MOVIE_ID)));
-                    ((Callback) getActivity()).onItemSelected(MoviesContract.MovieEntry.buildMoviesUri(cursor.getInt(COL_MOVIE_ID)));
-
+                    mCallback.onItemSelected(MoviesContract.MovieEntry.buildMoviesUri(cursor.getInt(COL_MOVIE_ID)));
                 }
                 mPosition = position;
 
             }
         });
 
-
         return rootView;
     }
+
+    public interface Callback {
+        /**
+         * DetailFragmentCallback for when an item has been selected.
+         */
+        public void onItemSelected(Uri dateUri);
+
+    }
+    private Callback mCallback;
+
+    @Override
+    public void onAttach(Activity activity){
+        super.onAttach(activity);
+        if (activity instanceof Callback){
+            mCallback = (Callback) activity;
+        }
+    }
+
+    @Override
+    public void onDetach(){
+        super.onDetach();
+        mCallback = null;
+    }
+
+
 
     // Attach loader to our flavors database query
     // run when loader is initialized
