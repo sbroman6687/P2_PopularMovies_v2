@@ -59,6 +59,14 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
     private static final int COL_MOVIE_POSTER = 2;
 
 
+    public interface Callback {
+        /**
+         * DetailFragmentCallback for when an item has been selected.
+         */
+        public void onItemSelected(Uri dateUri);
+
+    }
+    //private Callback mCallback;
 
 
     public PopularMoviesActivityFragment() {
@@ -124,7 +132,7 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
 
                 if (cursor != null) {
                     //String sortbySetting = Utility.getPreferedSorting(getActivity());
-                    mCallback.onItemSelected(MoviesContract.MovieEntry.buildMoviesUri(cursor.getInt(COL_MOVIE_ID)));
+                    ((Callback) getActivity()).onItemSelected(MoviesContract.MovieEntry.buildMoviesUri(cursor.getInt(COL_MOVIE_ID)));
                 }
                 mPosition = position;
 
@@ -134,28 +142,21 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
         return rootView;
     }
 
-    public interface Callback {
-        /**
-         * DetailFragmentCallback for when an item has been selected.
-         */
-        public void onItemSelected(Uri dateUri);
 
-    }
-    private Callback mCallback;
 
-    @Override
-    public void onAttach(Activity activity){
-        super.onAttach(activity);
-        if (activity instanceof Callback){
-            mCallback = (Callback) activity;
-        }
-    }
+    //@Override
+    //public void onAttach(Activity activity){
+        //super.onAttach(activity);
+        //if (activity instanceof Callback){
+            //mCallback = (Callback) activity;
+        //}
+    //}
 
-    @Override
-    public void onDetach(){
-        super.onDetach();
-        mCallback = null;
-    }
+    //@Override
+    //public void onDetach(){
+        //super.onDetach();
+        //mCallback = null;
+    //}
 
 
 

@@ -13,7 +13,7 @@ import android.view.MenuItem;
 
 import com.facebook.stetho.Stetho;
 
-public class PopularMoviesActivity extends AppCompatActivity {
+public class PopularMoviesActivity extends AppCompatActivity implements PopularMoviesActivityFragment.Callback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,5 +72,11 @@ public class PopularMoviesActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemSelected(Uri dateUri) {
+        Intent intent = new Intent(this,MovieDetailActivity.class).setData(dateUri);
+        startActivity(intent);
     }
 }

@@ -85,16 +85,6 @@ public class MovieDetailActivityFragment extends Fragment implements LoaderManag
         return rootView;
     }
 
-    //public static MovieDetailActivityFragment newInstance(int position, Uri uri){
-        //MovieDetailActivityFragment fragment = new MovieDetailActivityFragment();
-        //Bundle args = new Bundle();
-        //fragment.mPosition = position;
-        //fragment.mUri = uri;
-        //args.putInt("id",position);
-        //fragment.setArguments(args);
-        //return fragment;
-    //}
-
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -104,20 +94,9 @@ public class MovieDetailActivityFragment extends Fragment implements LoaderManag
     }
 
 
-    //@Override
-    //public void onDetach() {
-        //super.onDetach();
-//        mListener = null;
-    //}
-
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args){
-        //String selection = null;
-        //String [] selectionArgs = null;
-        //if (args != null){
-            ///selection = MoviesContract.MovieEntry._ID;
-            //selectionArgs = new String[]{String.valueOf(mPosition)};
-        //}
+
         if (null!= mUri){
             return new CursorLoader(getActivity(),
                     mUri,
@@ -129,10 +108,6 @@ public class MovieDetailActivityFragment extends Fragment implements LoaderManag
         return null;
     }
 
-   // @Override
-    //public void onViewCreated(View view, Bundle savedInstanceState){
-       // super.onViewCreated(view, savedInstanceState);
-   // }
     // Set the cursor in our CursorAdapter once the Cursor is loaded
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
@@ -155,6 +130,7 @@ public class MovieDetailActivityFragment extends Fragment implements LoaderManag
     public void onLoaderReset(Loader<Cursor> loader){
         //mDetailCursor = null;
     }
+
 }
 
 
