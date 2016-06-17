@@ -143,23 +143,6 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
     }
 
 
-
-    //@Override
-    //public void onAttach(Activity activity){
-        //super.onAttach(activity);
-        //if (activity instanceof Callback){
-            //mCallback = (Callback) activity;
-        //}
-    //}
-
-    //@Override
-    //public void onDetach(){
-        //super.onDetach();
-        //mCallback = null;
-    //}
-
-
-
     // Attach loader to our flavors database query
     // run when loader is initialized
     @Override

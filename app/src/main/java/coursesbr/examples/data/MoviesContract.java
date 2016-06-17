@@ -14,7 +14,7 @@ public class MoviesContract {
 
     public static final class MovieEntry implements BaseColumns{
         //Table name
-        public static final String TABLE_MOVIES = "movie2";
+        public static final String TABLE_MOVIES = "movie4";
         //Columns
         public static final String _ID = "_id";
         public static final String COLUMN_TITLE = "title";
@@ -23,6 +23,7 @@ public class MoviesContract {
         public static final String COLUMN_RATING = "rating";
         public static final String COLUMN_RELEASE = "release";
         public static final String COLUMN_OVERVIEW = "overview";
+
 
         //Create content uri
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()

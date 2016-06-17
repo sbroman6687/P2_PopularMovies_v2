@@ -46,6 +46,7 @@ public class MoviesSyncAdapter extends AbstractThreadedSyncAdapter {
 
     public String sortValue;
 
+
     private static final String[] NOTIFY_MOVIES_PROJECTION = new String[]{
             MoviesContract.MovieEntry._ID,
             MoviesContract.MovieEntry.COLUMN_TITLE,
@@ -182,7 +183,7 @@ public class MoviesSyncAdapter extends AbstractThreadedSyncAdapter {
                 String movie_release;
                 String movie_rating;
                 String movie_backdrop;
-                int movie_id;
+                String movie_id;
 
                 JSONObject moviedata = movieArray.getJSONObject(i);
                 img_path="http://image.tmdb.org/t/p/w500/" + moviedata.getString(OWM_POSTER_PATH);
@@ -191,7 +192,9 @@ public class MoviesSyncAdapter extends AbstractThreadedSyncAdapter {
                 movie_release=moviedata.getString(OWM_MOVIE_RELEASE);
                 movie_rating=moviedata.getString(OWM_MOVIE_RATING);
                 movie_backdrop= "http://image.tmdb.org/t/p/w780/" + moviedata.getString(OWM_BACKDROP);
-                movie_id = moviedata.getInt(OWM_MOVIE_ID);
+                movie_id = moviedata.getString(OWM_MOVIE_ID);
+
+
 
 
                 ContentValues movieValues = new ContentValues();

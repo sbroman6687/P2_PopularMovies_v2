@@ -108,8 +108,21 @@
             android:id="@+id/MovieSypnosis"
             android:layout_gravity="center_horizontal" />
 
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listview_trailers">
+
+        </ListView>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listview_reviews">
+        </ListView>
+
 
     </LinearLayout>
 
-
 </ScrollView>
+
