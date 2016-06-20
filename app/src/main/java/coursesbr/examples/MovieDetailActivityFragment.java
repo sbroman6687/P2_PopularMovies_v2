@@ -177,6 +177,8 @@ public class MovieDetailActivityFragment extends Fragment implements LoaderManag
 
             //MovieId to be able to obatin the reviews of each movie
             MovieId = data.getString(COL_MOVIE_ID);
+            this.updateReviews();
+            this.updateTrailers();
 
         }
 
@@ -188,24 +190,24 @@ public class MovieDetailActivityFragment extends Fragment implements LoaderManag
         //mDetailCursor = null;
     }
 
-
     //Section of the code where I am going to try to obtain the trailers and reviews
 
     private void updateReviews(){
         FetchReviewsTask reviewsTask = new FetchReviewsTask();
-        reviewsTask.execute();
+        reviewsTask.execute(MovieId);
     }
 
     private void updateTrailers(){
         FetchTrailersTask trailersTask = new FetchTrailersTask();
-        trailersTask.execute();
+        trailersTask.execute(MovieId);
     }
 
+
+    //onStart was here. Trying other thing
     @Override
     public void onStart(){
         super.onStart();
-        this.updateReviews();
-        this.updateTrailers();
+
     }
 
     public class FetchTrailersTask extends AsyncTask<String,Void,MovieTrailers[]>{
@@ -228,7 +230,6 @@ public class MovieDetailActivityFragment extends Fragment implements LoaderManag
 
                 JSONObject trailerdata = trailerArray.getJSONObject(i);
 
-
                 trailer_name = trailerdata.getString(TRAILER_NAME);
                 trailer_key = trailerdata.getString(TRAILER_KEY);
 
@@ -242,7 +243,7 @@ public class MovieDetailActivityFragment extends Fragment implements LoaderManag
 
         @Override
         protected MovieTrailers[] doInBackground(String... params) {
-
+            //String MovieId = params[0];
             HttpURLConnection urlConnection = null;
             BufferedReader reader = null;
 
@@ -251,7 +252,7 @@ public class MovieDetailActivityFragment extends Fragment implements LoaderManag
             try{
                 //Construct the url
                 String URLString = null;
-                URLString = "http://api.themoviedb.org/3/movie/" + MovieId + "/reviews?api_key=" + BuildConfig.OPEN_POPULAR_MOVIES_API_KEY;
+                URLString = "http://api.themoviedb.org/3/movie/" + MovieId + "/videos?api_key=" + BuildConfig.OPEN_POPULAR_MOVIES_API_KEY;
                 //URLString = "http://api.themoviedb.org/3/movie/" + "269149" + "/videos?api_key=" + BuildConfig.OPEN_POPULAR_MOVIES_API_KEY;
 
                 URL url = new URL(URLString);
@@ -480,6 +481,7 @@ public class MovieDetailActivityFragment extends Fragment implements LoaderManag
             }
         }
     }
+
 
 
 
