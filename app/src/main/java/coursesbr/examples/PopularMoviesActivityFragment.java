@@ -88,8 +88,8 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
         super.onActivityCreated(savedInstanceState);
         getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
 
-
     }
+
 
     private void updateMovies(){
         MoviesSyncAdapter.syncImmediately(getActivity());
@@ -156,8 +156,11 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
         //Construction of selection  that matches the word that the iser entered
         if (sortcriteria.equals(getString(R.string.pref_sort_value_popular))){
             selectionUser =MoviesContract.MovieEntry.COLUMN_POPULARITY+" DESC";
+
         }else{
             selectionUser = MoviesContract.MovieEntry.COLUMN_RATING+" DESC";
+
+
         }
 
         return new CursorLoader(getActivity(),
@@ -166,10 +169,12 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
                 null,
                 null,
                 selectionUser);
+
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
+
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -182,6 +187,13 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         movieAdapter.swapCursor(null);
+    }
+
+    void onSortCriteriaModified(){
+        if (Utility.getPreferedSorting(getContext()).equals(getString(R.string.pref_sort_value_toprated))){
+            getLoaderManager().restartLoader(CURSOR_LOADER_ID,null,this);
+        }
+
     }
 
 
