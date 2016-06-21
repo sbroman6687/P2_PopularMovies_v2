@@ -143,20 +143,29 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
     }
 
 
-    // Attach loader to our flavors database query
+    // Attach loader to our database query
     // run when loader is initialized
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+
+        String selectionUser = null;
         //aqui probablemente haya que hacer algo para el sort. Mirar el ejemplo y sunshine mas adelante
 
-        String sortrated = MoviesContract.MovieEntry.COLUMN_RATING + " DESC";
+        String sortcriteria = Utility.getPreferedSorting(getContext());
+
+        //Construction of selection  that matches the word that the iser entered
+        if (sortcriteria.equals(getString(R.string.pref_sort_value_popular))){
+            selectionUser =MoviesContract.MovieEntry.COLUMN_POPULARITY+" DESC";
+        }else{
+            selectionUser = MoviesContract.MovieEntry.COLUMN_RATING+" DESC";
+        }
 
         return new CursorLoader(getActivity(),
                 MoviesContract.MovieEntry.CONTENT_URI,
                 MOVIE_COLUMNS, //projection
                 null,
                 null,
-                sortrated);
+                selectionUser);
     }
 
     @Override
@@ -174,6 +183,7 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
     public void onLoaderReset(Loader<Cursor> loader) {
         movieAdapter.swapCursor(null);
     }
+
 
 }
 

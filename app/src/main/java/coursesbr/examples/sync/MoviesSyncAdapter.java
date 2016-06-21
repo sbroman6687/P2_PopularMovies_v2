@@ -93,8 +93,8 @@ public class MoviesSyncAdapter extends AbstractThreadedSyncAdapter {
             final String API_PAGE = "page";
 
             Uri builtUri = Uri.parse(MOVIES_BASE_URL).buildUpon()
-                    .appendQueryParameter(API_PAGE, "1")
-                    .appendQueryParameter(SORT_BY,sortValue)
+                    //.appendQueryParameter(API_PAGE, "1")
+                    //.appendQueryParameter(SORT_BY,sortValue)
                     .appendQueryParameter(APIKEY_PARAM, BuildConfig.OPEN_POPULAR_MOVIES_API_KEY)
                     .build();
 
@@ -165,6 +165,7 @@ public class MoviesSyncAdapter extends AbstractThreadedSyncAdapter {
         final String OWM_SYPNOSIS = "overview";
         final String OWM_MOVIE_RELEASE = "release_date";
         final String OWM_MOVIE_RATING = "vote_average";
+        final String OWM_MOVIE_POPULARITY = "popularity";
         final String OWM_BACKDROP = "backdrop_path";
         final String OWM_MOVIE_ID = "id";
 
@@ -182,6 +183,7 @@ public class MoviesSyncAdapter extends AbstractThreadedSyncAdapter {
                 String sypnosis;
                 String movie_release;
                 String movie_rating;
+                String movie_popularity;
                 String movie_backdrop;
                 String movie_id;
 
@@ -191,6 +193,7 @@ public class MoviesSyncAdapter extends AbstractThreadedSyncAdapter {
                 sypnosis = moviedata.getString(OWM_SYPNOSIS);
                 movie_release=moviedata.getString(OWM_MOVIE_RELEASE);
                 movie_rating=moviedata.getString(OWM_MOVIE_RATING);
+                movie_popularity=moviedata.getString(OWM_MOVIE_POPULARITY);
                 movie_backdrop= "http://image.tmdb.org/t/p/w780/" + moviedata.getString(OWM_BACKDROP);
                 movie_id = moviedata.getString(OWM_MOVIE_ID);
 
@@ -205,6 +208,7 @@ public class MoviesSyncAdapter extends AbstractThreadedSyncAdapter {
                 movieValues.put(MoviesContract.MovieEntry.COLUMN_OVERVIEW,sypnosis);
                 movieValues.put(MoviesContract.MovieEntry.COLUMN_BACKPOSTER,movie_backdrop);
                 movieValues.put(MoviesContract.MovieEntry.COLUMN_RATING,movie_rating);
+                movieValues.put(MoviesContract.MovieEntry.COLUMN_POPULARITY,movie_popularity);
                 movieValues.put(MoviesContract.MovieEntry.COLUMN_RELEASE,movie_release);
 
                 cVVector.add(movieValues);

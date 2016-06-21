@@ -14,13 +14,14 @@ public class MoviesContract {
 
     public static final class MovieEntry implements BaseColumns{
         //Table name
-        public static final String TABLE_MOVIES = "movie4";
+        public static final String TABLE_MOVIES = "movie6";
         //Columns
         public static final String _ID = "_id";
         public static final String COLUMN_TITLE = "title";
         public static final String COLUMN_POSTER = "poster";
         public static final String COLUMN_BACKPOSTER = "backposter";
         public static final String COLUMN_RATING = "rating";
+        public static final String COLUMN_POPULARITY = "popular";
         public static final String COLUMN_RELEASE = "release";
         public static final String COLUMN_OVERVIEW = "overview";
 
