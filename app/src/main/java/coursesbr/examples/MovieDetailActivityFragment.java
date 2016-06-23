@@ -1,16 +1,20 @@
 package coursesbr.examples;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -58,6 +62,8 @@ public class MovieDetailActivityFragment extends Fragment implements LoaderManag
     private TextView mMovieRating;
     private TextView mMovieRelease;
 
+    public boolean mIsFavourite;
+
     //Strings required for reviews
     public String MovieId;
     public ReviewsAdapter reviewsadapter;
@@ -78,6 +84,7 @@ public class MovieDetailActivityFragment extends Fragment implements LoaderManag
             MoviesContract.MovieEntry.COLUMN_BACKPOSTER,
             MoviesContract.MovieEntry.COLUMN_RATING,
             MoviesContract.MovieEntry.COLUMN_RELEASE,
+            MoviesContract.MovieEntry.COLUMN_FAVOURITE
 
     };
     // these constants correspond to the projection defined above, and must change if the
@@ -89,6 +96,7 @@ public class MovieDetailActivityFragment extends Fragment implements LoaderManag
     private static final int COL_MOVIE_BACKPOSTER = 4;
     private static final int COL_MOVIE_RATING = 5;
     private static final int COL_MOVIE_RELEASE = 6;
+    private static final int COL_MOVIE_FAVOURITE = 7;
 
 
     public MovieDetailActivityFragment() {
@@ -168,17 +176,20 @@ public class MovieDetailActivityFragment extends Fragment implements LoaderManag
         if (data != null && data.moveToFirst()){
             mMovieTitle.setText(data.getString(COL_MOVIE_TITLE));
             mMovieRelease.setText(data.getString(COL_MOVIE_RELEASE));
-            mMovieRating.setText(data.getString(COL_MOVIE_RATING));
+            mMovieRating.setText(data.getString(COL_MOVIE_RATING)+ "/10") ;
             mMovieOverview.setText(data.getString(COL_MOVIE_OVERVIEW));
             String movieposter = data.getString(COL_MOVIE_POSTER);
             Picasso.with(getContext()).load(movieposter).into(mMoviePoster);
             String movieBackground = data.getString(COL_MOVIE_BACKPOSTER);
             Picasso.with(getContext()).load(movieBackground).into(mMovieBackground);
 
+            mIsFavourite = data.getInt(COL_MOVIE_FAVOURITE)> 0;
+
             //MovieId to be able to obatin the reviews of each movie
             MovieId = data.getString(COL_MOVIE_ID);
             this.updateReviews();
             this.updateTrailers();
+
 
         }
 
@@ -322,7 +333,7 @@ public class MovieDetailActivityFragment extends Fragment implements LoaderManag
                         }
                     });
 
-                    ListTrailers.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                    ListTrailers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -334,7 +345,7 @@ public class MovieDetailActivityFragment extends Fragment implements LoaderManag
                             //Intent to start the youtube video
 
                             Intent youtubeIntent = new Intent(Intent.ACTION_VIEW,
-                                    Uri.parse("http://youtube.com" + "/watch?v="+trailer_key));
+                                    Uri.parse("http://youtube.com" + "/watch?v=" + trailer_key));
                             startActivity(youtubeIntent);
 
                         }
@@ -403,8 +414,6 @@ public class MovieDetailActivityFragment extends Fragment implements LoaderManag
                 //Construct the url
                 String URLString = null;
                 URLString = "http://api.themoviedb.org/3/movie/" + MovieId + "/reviews?api_key=" + BuildConfig.OPEN_POPULAR_MOVIES_API_KEY;
-                //URLString = "http://api.themoviedb.org/3/movie/" + "269149" + "/reviews?api_key=" + BuildConfig.OPEN_POPULAR_MOVIES_API_KEY;
-
 
                 URL url = new URL(URLString);
 
@@ -481,6 +490,8 @@ public class MovieDetailActivityFragment extends Fragment implements LoaderManag
             }
         }
     }
+
+
 
 
 

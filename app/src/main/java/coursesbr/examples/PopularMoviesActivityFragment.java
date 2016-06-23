@@ -93,6 +93,7 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
 
     private void updateMovies(){
         MoviesSyncAdapter.syncImmediately(getActivity());
+        getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
 
     }
 
@@ -119,6 +120,7 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
         //set gridView adapter to our CursorAdapter
 
         gridView.setAdapter(movieAdapter);
+
 
         //make each item clickable
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -149,18 +151,18 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
         String selectionUser = null;
-        //aqui probablemente haya que hacer algo para el sort. Mirar el ejemplo y sunshine mas adelante
 
         String sortcriteria = Utility.getPreferedSorting(getContext());
 
-        //Construction of selection  that matches the word that the iser entered
+        //Construction of selection  that matches the word that the user entered
         if (sortcriteria.equals(getString(R.string.pref_sort_value_popular))){
             selectionUser =MoviesContract.MovieEntry.COLUMN_POPULARITY+" DESC";
 
-        }else{
+        }else if (sortcriteria.equals(getString(R.string.pref_sort_value_toprated))){
             selectionUser = MoviesContract.MovieEntry.COLUMN_RATING+" DESC";
 
-
+        }else{
+            selectionUser = MoviesContract.MovieEntry.COLUMN_FAVOURITE+ "=" + 1;
         }
 
         return new CursorLoader(getActivity(),
@@ -170,30 +172,26 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
                 null,
                 selectionUser);
 
+
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
 
         super.onViewCreated(view, savedInstanceState);
+
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         movieAdapter.swapCursor(data);
 
+
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         movieAdapter.swapCursor(null);
-    }
-
-    void onSortCriteriaModified(){
-        if (Utility.getPreferedSorting(getContext()).equals(getString(R.string.pref_sort_value_toprated))){
-            getLoaderManager().restartLoader(CURSOR_LOADER_ID,null,this);
-        }
-
     }
 
 

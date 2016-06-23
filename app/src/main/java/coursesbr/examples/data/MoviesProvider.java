@@ -233,5 +233,19 @@ public class MoviesProvider extends ContentProvider {
         return numUpdated;
     }
 
+    public boolean insertFavourite(int favourite){
+        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MoviesContract.MovieEntry.COLUMN_FAVOURITE, favourite);
+
+        long result = db.insert(MoviesContract.MovieEntry.TABLE_MOVIES,null,contentValues);
+
+        if (result ==-1)
+            return false;
+        else
+            return true;
+
+    }
+
 }
 

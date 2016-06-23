@@ -26,14 +26,14 @@ public class PopularMoviesActivity extends AppCompatActivity implements PopularM
         //getSupportFragmentManager().beginTransaction().replace(R.id.fragment,
                 //new PopularMoviesActivityFragment()).commit();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        //fab.setOnClickListener(new View.OnClickListener() {
+            //@Override
+            //public void onClick(View view) {
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        //.setAction("Action", null).show();
+            //}
+        //});
 
         // Stetho is a tool created by facebook to view your database in chrome inspect.
         // The code below integrates Stetho into your app. More information here:
@@ -80,4 +80,3 @@ public class PopularMoviesActivity extends AppCompatActivity implements PopularM
         startActivity(intent);
     }
 }
-///////

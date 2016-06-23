@@ -12,14 +12,18 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="pref_sort_value_toprated">top rated</string>
     <string name="pref_sort_value_popular">most popular</string>
+    <string name="pref_sort_label_favourites">Favourites</string>
+    <string name="pref_sort_value_favourite">favourite</string>
 
     <string-array name="pref_sort_options">
         <item>@string/pref_sort_label_popular</item>
         <item>@string/pref_sort_label_toprated</item>
+        <item>@string/pref_sort_label_favourites</item>
     </string-array>
 
     <string-array name="pref_sort_values">
         <item>@string/pref_sort_value_popular</item>
         <item>@string/pref_sort_value_toprated</item>
+        <item>@string/pref_sort_value_favourite</item>
     </string-array>
 </resources>
