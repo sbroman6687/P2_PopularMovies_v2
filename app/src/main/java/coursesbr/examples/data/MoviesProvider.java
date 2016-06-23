@@ -233,8 +233,10 @@ public class MoviesProvider extends ContentProvider {
         return numUpdated;
     }
 
+
     public boolean insertFavourite(int favourite){
-        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+
+        final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(MoviesContract.MovieEntry.COLUMN_FAVOURITE, favourite);
 
@@ -245,6 +247,10 @@ public class MoviesProvider extends ContentProvider {
         else
             return true;
 
+    }
+
+    public static int getFavouriteNumber(){
+        return 1;
     }
 
 }

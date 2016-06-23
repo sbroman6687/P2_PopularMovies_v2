@@ -19,10 +19,13 @@ import coursesbr.examples.data.MoviesProvider;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
-    MoviesProvider myFavourites;
-    int favouriteMovie = 1;
+    private MoviesProvider myFavourites;
+    //int favouriteMovie = 1;
 
 
+    //public int insertFavourite(){
+        //return 1;
+    //}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +34,9 @@ public class MovieDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        AddData();
+        myFavourites = new MoviesProvider();
 
+        AddData();
 
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
@@ -46,9 +50,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.movie_detail_container, fragment)
                     .commit();
-
         }
-
     }
 
     public void AddData(){
@@ -58,13 +60,13 @@ public class MovieDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Snackbar.make(view, "Add to Favourites", Snackbar.LENGTH_LONG)
                         //.setAction("Action", null).show();
+                int favouriteMovie = myFavourites.getFavouriteNumber();
 
                 boolean isInserted = myFavourites.insertFavourite(favouriteMovie);
                 if (isInserted == true)
                     Toast.makeText(MovieDetailActivity.this, "Favourite  inserted", Toast.LENGTH_LONG).show();
                 else
                     Toast.makeText(MovieDetailActivity.this, "Favourite NOT inserted", Toast.LENGTH_LONG).show();
-
 
             }
         });
