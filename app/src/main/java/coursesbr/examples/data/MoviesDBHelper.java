@@ -1,5 +1,6 @@
 package coursesbr.examples.data;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -12,8 +13,8 @@ public class MoviesDBHelper extends SQLiteOpenHelper {
     public static final String LOG_TAG = MoviesDBHelper.class.getSimpleName();
 
     //name&version. If you change the database schema, you must increment the database version
-    private static final String DATABASE_NAME = "movies8.db";
-    private static final int DATABASE_VERSION = 8;
+    private static final String DATABASE_NAME = "movies10.db";
+    private static final int DATABASE_VERSION = 10;
 
     public MoviesDBHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -25,11 +26,11 @@ public class MoviesDBHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_MOVIE_TABLE = "CREATE TABLE " +
                 MoviesContract.MovieEntry.TABLE_MOVIES + " (" + MoviesContract.MovieEntry._ID +
                 " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                MoviesContract.MovieEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
+                MoviesContract.MovieEntry.COLUMN_TITLE + " TEXT, " +
                 MoviesContract.MovieEntry.COLUMN_POSTER + " TEXT, " +
                 MoviesContract.MovieEntry.COLUMN_BACKPOSTER + " TEXT, " +
-                MoviesContract.MovieEntry.COLUMN_RATING + " TEXT NOT NULL, " +
-                MoviesContract.MovieEntry.COLUMN_POPULARITY + " TEXT NOT NULL, " +
+                MoviesContract.MovieEntry.COLUMN_RATING + " TEXT, " +
+                MoviesContract.MovieEntry.COLUMN_POPULARITY + " TEXT, " +
                 MoviesContract.MovieEntry.COLUMN_RELEASE + " TEXT, " +
                 MoviesContract.MovieEntry.COLUMN_FAVOURITE + " INTEGER, " +
                 MoviesContract.MovieEntry.COLUMN_OVERVIEW + " TEXT ); ";
@@ -37,6 +38,25 @@ public class MoviesDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_MOVIE_TABLE);
 
     }
+
+    //Code to add favourites to the table
+
+    public void addFavourite(int favourite, SQLiteDatabase db){
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MoviesContract.MovieEntry.COLUMN_FAVOURITE, favourite);
+
+        //long result = db.insert(MoviesContract.MovieEntry.TABLE_MOVIES,null,contentValues);
+        db.insert(MoviesContract.MovieEntry.TABLE_MOVIES, null, contentValues);
+        Log.e("DATABASE FAVOURITES","One favourite movie is inserted");
+
+    }
+
+    public static int getFavouriteNumber(){
+        return 1;
+    }
+
+
     //Upgrade database when version is changed
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion){

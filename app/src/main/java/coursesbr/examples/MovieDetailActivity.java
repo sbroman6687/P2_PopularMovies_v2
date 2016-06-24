@@ -1,6 +1,7 @@
 package coursesbr.examples;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -19,13 +20,10 @@ import coursesbr.examples.data.MoviesProvider;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
-    private MoviesProvider myFavourites;
-    //int favouriteMovie = 1;
+    Context context = this;
+    MoviesDBHelper moviesDBHelper;
+    SQLiteDatabase sqLiteDatabase;
 
-
-    //public int insertFavourite(){
-        //return 1;
-    //}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +32,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        myFavourites = new MoviesProvider();
 
         AddData();
 
@@ -60,13 +57,18 @@ public class MovieDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Snackbar.make(view, "Add to Favourites", Snackbar.LENGTH_LONG)
                         //.setAction("Action", null).show();
-                int favouriteMovie = myFavourites.getFavouriteNumber();
 
-                boolean isInserted = myFavourites.insertFavourite(favouriteMovie);
-                if (isInserted == true)
-                    Toast.makeText(MovieDetailActivity.this, "Favourite  inserted", Toast.LENGTH_LONG).show();
-                else
-                    Toast.makeText(MovieDetailActivity.this, "Favourite NOT inserted", Toast.LENGTH_LONG).show();
+                int favouriteMovie = moviesDBHelper.getFavouriteNumber();
+
+                moviesDBHelper = new MoviesDBHelper(context);
+                sqLiteDatabase = moviesDBHelper.getWritableDatabase();
+                //Add information into the database
+                moviesDBHelper.addFavourite(favouriteMovie,sqLiteDatabase);
+
+                Toast.makeText(MovieDetailActivity.this, "Favourite  Saved", Toast.LENGTH_SHORT).show();
+
+                moviesDBHelper.close();
+
 
             }
         });
@@ -75,4 +77,3 @@ public class MovieDetailActivity extends AppCompatActivity {
 
 }
 
-///

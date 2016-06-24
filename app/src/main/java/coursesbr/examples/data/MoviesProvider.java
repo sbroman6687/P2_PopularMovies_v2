@@ -233,6 +233,15 @@ public class MoviesProvider extends ContentProvider {
         return numUpdated;
     }
 
+    //I am going to move this to the DBHelper
+
+    /**
+     *
+     * @param favourite
+     * @return
+
+
+
 
     public boolean insertFavourite(int favourite){
 
@@ -240,7 +249,8 @@ public class MoviesProvider extends ContentProvider {
         ContentValues contentValues = new ContentValues();
         contentValues.put(MoviesContract.MovieEntry.COLUMN_FAVOURITE, favourite);
 
-        long result = db.insert(MoviesContract.MovieEntry.TABLE_MOVIES,null,contentValues);
+        //long result = db.insert(MoviesContract.MovieEntry.TABLE_MOVIES,null,contentValues);
+        long result = getContext().getContentResolver().insert(,null,contentValues);
 
         if (result ==-1)
             return false;
@@ -252,7 +262,7 @@ public class MoviesProvider extends ContentProvider {
     public static int getFavouriteNumber(){
         return 1;
     }
+     */
 
 }
 
-//

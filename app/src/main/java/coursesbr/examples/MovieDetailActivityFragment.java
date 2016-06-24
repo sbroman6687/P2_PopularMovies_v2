@@ -190,7 +190,6 @@ public class MovieDetailActivityFragment extends Fragment implements LoaderManag
             this.updateReviews();
             this.updateTrailers();
 
-
         }
 
     }
