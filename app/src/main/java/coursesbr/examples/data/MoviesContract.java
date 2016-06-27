@@ -14,7 +14,7 @@ public class MoviesContract {
 
     public static final class MovieEntry implements BaseColumns{
         //Table name
-        public static final String TABLE_MOVIES = "movie10";
+        public static final String TABLE_MOVIES = "movie11";
         //Columns
         public static final String _ID = "_id";
         public static final String COLUMN_TITLE = "title";

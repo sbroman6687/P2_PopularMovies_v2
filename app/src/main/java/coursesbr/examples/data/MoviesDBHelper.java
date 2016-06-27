@@ -13,8 +13,8 @@ public class MoviesDBHelper extends SQLiteOpenHelper {
     public static final String LOG_TAG = MoviesDBHelper.class.getSimpleName();
 
     //name&version. If you change the database schema, you must increment the database version
-    private static final String DATABASE_NAME = "movies10.db";
-    private static final int DATABASE_VERSION = 10;
+    private static final String DATABASE_NAME = "movies11.db";
+    private static final int DATABASE_VERSION = 11;
 
     public MoviesDBHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -41,20 +41,26 @@ public class MoviesDBHelper extends SQLiteOpenHelper {
 
     //Code to add favourites to the table
 
-    public void addFavourite(int favourite, SQLiteDatabase db){
+    public void addFavourite(String favourite, SQLiteDatabase db){
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(MoviesContract.MovieEntry.COLUMN_FAVOURITE, favourite);
+        contentValues.put(MoviesContract.MovieEntry.COLUMN_FAVOURITE, 1);
 
-        //long result = db.insert(MoviesContract.MovieEntry.TABLE_MOVIES,null,contentValues);
-        db.insert(MoviesContract.MovieEntry.TABLE_MOVIES, null, contentValues);
+        //Which row to update based on the ID
+        String selection = MoviesContract.MovieEntry._ID + " LIKE ?";
+        String[] selectionArgs = { String.valueOf(favourite)};
+
+        //db.insert(MoviesContract.MovieEntry.TABLE_MOVIES, null, contentValues);
+
+        db.update(MoviesContract.MovieEntry.TABLE_MOVIES, contentValues,selection,selectionArgs);
+
         Log.e("DATABASE FAVOURITES","One favourite movie is inserted");
 
     }
 
-    public static int getFavouriteNumber(){
-        return 1;
-    }
+    //public static int getFavouriteNumber(){
+        //return 47933;
+    //}
 
 
     //Upgrade database when version is changed

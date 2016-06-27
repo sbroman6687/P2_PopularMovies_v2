@@ -15,6 +15,9 @@ import com.facebook.stetho.Stetho;
 
 public class PopularMoviesActivity extends AppCompatActivity implements PopularMoviesActivityFragment.Callback {
 
+    private boolean mTwoPane;
+    private String mSortCriteria;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,18 +25,29 @@ public class PopularMoviesActivity extends AppCompatActivity implements PopularM
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mSortCriteria = Utility.getPreferedSorting(this);
+
         //si comento estas lineas se rellena mi grid
         //getSupportFragmentManager().beginTransaction().replace(R.id.fragment,
                 //new PopularMoviesActivityFragment()).commit();
 
-        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        //fab.setOnClickListener(new View.OnClickListener() {
-            //@Override
-            //public void onClick(View view) {
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        //.setAction("Action", null).show();
-            //}
-        //});
+        if (findViewById(R.id.movie_detail_container)!=null){
+            // The detail container view will be present only in the large-screen layouts
+            // (res/layout-sw600dp). If this view is present, then the activity should be
+            // in two-pane mode.
+            mTwoPane = true;
+            // In two-pane mode, show the detail view in this activity by
+            // adding or replacing the detail fragment using a
+            // fragment transaction.
+            if (savedInstanceState == null){
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.movie_detail_container,new MovieDetailActivityFragment())
+                        .commit();
+
+            }
+        } else {
+            mTwoPane = false;
+        }
 
         // Stetho is a tool created by facebook to view your database in chrome inspect.
         // The code below integrates Stetho into your app. More information here:
@@ -47,6 +61,22 @@ public class PopularMoviesActivity extends AppCompatActivity implements PopularM
                         .build());
 
         ///////////////
+
+
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        String sortCriteria = Utility.getPreferedSorting(this);
+
+        if (sortCriteria != null && !sortCriteria.equals(mSortCriteria)){
+            PopularMoviesActivityFragment ff = (PopularMoviesActivityFragment)getSupportFragmentManager().findFragmentById(R.id.movie_detail_container);
+            if (null != ff){
+                ff.onSortCriteriaChanged();
+            }
+            mSortCriteria = sortCriteria;
+        }
     }
 
 
@@ -76,7 +106,26 @@ public class PopularMoviesActivity extends AppCompatActivity implements PopularM
 
     @Override
     public void onItemSelected(Uri dateUri) {
-        Intent intent = new Intent(this,MovieDetailActivity.class).setData(dateUri);
-        startActivity(intent);
+
+        if (mTwoPane){
+            // In two-pane mode, show the detail view in this activity by
+//             adding or replacing the detail fragment using a
+//             fragment transaction.
+            Bundle args = new Bundle();
+            args.putParcelable(MovieDetailActivityFragment.DETAIL_URI, dateUri);
+            //args.putInt(MovieDetailActivityFragment.MOVIE_ID, MovieId);
+
+            MovieDetailActivityFragment fragment = new MovieDetailActivityFragment();
+            fragment.setArguments(args);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.movie_detail_container,fragment)
+                    .commit();
+
+        }else{
+            Intent intent = new Intent(this,MovieDetailActivity.class).setData(dateUri);
+            startActivity(intent);
+        }
+
     }
 }

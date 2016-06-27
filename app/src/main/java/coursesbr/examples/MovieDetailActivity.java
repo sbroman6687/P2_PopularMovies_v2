@@ -33,7 +33,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        AddData();
+        AddFavouriteMovie();
 
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
@@ -50,7 +50,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         }
     }
 
-    public void AddData(){
+    public void AddFavouriteMovie(){
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,17 +58,18 @@ public class MovieDetailActivity extends AppCompatActivity {
                 //Snackbar.make(view, "Add to Favourites", Snackbar.LENGTH_LONG)
                         //.setAction("Action", null).show();
 
-                int favouriteMovie = moviesDBHelper.getFavouriteNumber();
+                //Poner el Id de la favouriteMovie Aqui
+
+                String favouriteMovieId = MovieDetailActivityFragment.getFavouriteId();
 
                 moviesDBHelper = new MoviesDBHelper(context);
                 sqLiteDatabase = moviesDBHelper.getWritableDatabase();
-                //Add information into the database
-                moviesDBHelper.addFavourite(favouriteMovie,sqLiteDatabase);
+                //Add favourites into the database
+                moviesDBHelper.addFavourite(favouriteMovieId,sqLiteDatabase);
 
                 Toast.makeText(MovieDetailActivity.this, "Favourite  Saved", Toast.LENGTH_SHORT).show();
 
                 moviesDBHelper.close();
-
 
             }
         });

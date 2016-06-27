@@ -149,6 +149,7 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
     // run when loader is initialized
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        String[] selectionArgs = null;
 
         String selectionUser = null;
 
@@ -156,22 +157,36 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
 
         //Construction of selection  that matches the word that the user entered
         if (sortcriteria.equals(getString(R.string.pref_sort_value_popular))){
-            selectionUser =MoviesContract.MovieEntry.COLUMN_POPULARITY+" DESC";
+
+            selectionUser =MoviesContract.MovieEntry.COLUMN_POPULARITY + " DESC";
+            return new CursorLoader(getActivity(),
+                    MoviesContract.MovieEntry.CONTENT_URI,
+                    MOVIE_COLUMNS, //projection
+                    null,
+                    null,
+                    selectionUser);
 
         }else if (sortcriteria.equals(getString(R.string.pref_sort_value_toprated))){
-            selectionUser = MoviesContract.MovieEntry.COLUMN_RATING+" DESC";
+
+            selectionUser = MoviesContract.MovieEntry.COLUMN_RATING + " DESC";
+            return new CursorLoader(getActivity(),
+                    MoviesContract.MovieEntry.CONTENT_URI,
+                    MOVIE_COLUMNS, //projection
+                    null,
+                    null,
+                    selectionUser);
 
         }else{
-            selectionUser = MoviesContract.MovieEntry.COLUMN_FAVOURITE+ "=" + 1;
+
+            selectionArgs = new String [] {"" + 1};
+            selectionUser = MoviesContract.MovieEntry.COLUMN_FAVOURITE + " = ?";
+            return new CursorLoader(getActivity(),
+                    MoviesContract.MovieEntry.CONTENT_URI,
+                    MOVIE_COLUMNS, //projection
+                    selectionUser,
+                    selectionArgs,
+                    null);
         }
-
-        return new CursorLoader(getActivity(),
-                MoviesContract.MovieEntry.CONTENT_URI,
-                MOVIE_COLUMNS, //projection
-                null,
-                null,
-                selectionUser);
-
 
     }
 
@@ -192,6 +207,13 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         movieAdapter.swapCursor(null);
+    }
+
+    //Additional code for tablets
+    void onSortCriteriaChanged(){
+
+        getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
+
     }
 
 

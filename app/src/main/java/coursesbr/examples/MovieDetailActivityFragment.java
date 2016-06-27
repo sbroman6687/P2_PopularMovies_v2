@@ -65,7 +65,7 @@ public class MovieDetailActivityFragment extends Fragment implements LoaderManag
     public boolean mIsFavourite;
 
     //Strings required for reviews
-    public String MovieId;
+    public static String MovieId;
     public ReviewsAdapter reviewsadapter;
     public ListView ListReviews;
     public View rootView;
@@ -192,6 +192,10 @@ public class MovieDetailActivityFragment extends Fragment implements LoaderManag
 
         }
 
+    }
+    public static String getFavouriteId(){
+
+        return MovieId;
     }
 
     // reset CursorAdapter on Loader Reset
