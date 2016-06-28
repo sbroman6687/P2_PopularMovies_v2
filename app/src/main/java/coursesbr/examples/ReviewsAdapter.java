@@ -42,12 +42,14 @@ public class ReviewsAdapter extends ArrayAdapter<MovieReviews> {
 
         if (convertView ==null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.review_item,parent,false);
-            TextView AuthorName = (TextView)convertView.findViewById(R.id.review_item_author);
-            AuthorName.setText(result.author);
 
-            TextView ContentTxt = (TextView)convertView.findViewById(R.id.review_item_content);
-            ContentTxt.setText(result.content);
         }
+
+        TextView AuthorName = (TextView)convertView.findViewById(R.id.review_item_author);
+        AuthorName.setText(result.author);
+
+        TextView ContentTxt = (TextView)convertView.findViewById(R.id.review_item_content);
+        ContentTxt.setText(result.content);
 
         return convertView;
 
