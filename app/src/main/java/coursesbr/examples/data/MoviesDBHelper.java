@@ -13,8 +13,8 @@ public class MoviesDBHelper extends SQLiteOpenHelper {
     public static final String LOG_TAG = MoviesDBHelper.class.getSimpleName();
 
     //name&version. If you change the database schema, you must increment the database version
-    private static final String DATABASE_NAME = "movies11.db";
-    private static final int DATABASE_VERSION = 11;
+    private static final String DATABASE_NAME = "movies12.db";
+    private static final int DATABASE_VERSION = 12;
 
     public MoviesDBHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

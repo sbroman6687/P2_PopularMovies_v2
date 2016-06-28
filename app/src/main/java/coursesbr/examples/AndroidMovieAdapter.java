@@ -24,13 +24,13 @@ public class AndroidMovieAdapter extends CursorAdapter {
 
     public static class ViewHolder{
         public final ImageView imageView;
-        public final TextView textView;
+        //public final TextView textView;
 
         public ViewHolder(View view){
 
             imageView = (ImageView)view.findViewById(R.id.movieView);
 
-            textView = (TextView)view.findViewById(R.id.titlemovie_text);
+            //textView = (TextView)view.findViewById(R.id.titlemovie_text);
         }
     }
 
@@ -62,9 +62,9 @@ public class AndroidMovieAdapter extends CursorAdapter {
         //Read data from cursor
         //here is where we are going to insert Picasso
 
-        int titleIndex = cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_TITLE);
-        final String versionTitle = cursor.getString(titleIndex);
-        viewHolder.textView.setText(versionTitle);
+        //int titleIndex = cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_TITLE);
+        //final String versionTitle = cursor.getString(titleIndex);
+        //viewHolder.textView.setText(versionTitle);
 
         int posterIndex = cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_POSTER);
         final String poster = cursor.getString(posterIndex);

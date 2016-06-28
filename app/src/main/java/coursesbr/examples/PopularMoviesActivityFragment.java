@@ -3,6 +3,7 @@ package coursesbr.examples;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
@@ -13,10 +14,14 @@ import android.support.v4.content.Loader;
 import android.telecom.Call;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ListView;
 
 
 import coursesbr.examples.data.MoviesContract;
@@ -33,6 +38,8 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
     public AndroidMovieAdapter movieAdapter;
     public GridView gridView;
     public View rootView;
+
+    private static final String SELECTED_KEY = "selected_position";
 
 
 
@@ -141,8 +148,33 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
             }
         });
 
+        // If there's instance state, mine it for useful information.
+        // The end-goal here is that the user never knows that turning their device sideways
+        // does crazy lifecycle related things.  It should feel like some stuff stretched out,
+        // or magically appeared to take advantage of room, but data or place in the app was never
+        // actually *lost*.
+        if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)) {
+            // The listview probably hasn't even been populated yet.  Actually perform the
+            // swapout in onLoadFinished.
+            mPosition = savedInstanceState.getInt(SELECTED_KEY);
+        }
+
+
+
         return rootView;
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        // When tablets rotate, the currently selected list item needs to be saved.
+        // When no item is selected, mPosition will be set to Listview.INVALID_POSITION,
+        // so check for that before storing.
+        if (mPosition != GridView.INVALID_POSITION) {
+            outState.putInt(SELECTED_KEY, mPosition);
+        }
+        super.onSaveInstanceState(outState);
+    }
+
 
 
     // Attach loader to our database query
@@ -201,6 +233,12 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         movieAdapter.swapCursor(data);
 
+        if (mPosition != GridView.INVALID_POSITION) {
+            // If we don't need to restart the loader, and there's a desired position to restore
+            // to, do so now.
+            gridView.smoothScrollToPosition(mPosition);
+        }
+
 
     }
 
@@ -211,7 +249,7 @@ public class PopularMoviesActivityFragment extends Fragment implements LoaderMan
 
     //Additional code for tablets
     void onSortCriteriaChanged(){
-
+        updateMovies();
         getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
 
     }
